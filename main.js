@@ -1,6 +1,7 @@
-const {app, BrowserWindow, Menu} = require('electron')
-const path = require('path')
-const url = require('url')
+// Modules to control application life and create native browser window
+const {app, BrowserWindow} = require('electron');
+const path = require('path');
+const url = require('url');
 
 let win = null;
 
@@ -10,7 +11,7 @@ function createWindow () {
 
     // load the dist folder from Angular
     win.loadURL(url.format({
-        pathname: path.join(__dirname, 'dist/farm-manager/index.html'),
+        pathname: path.join(__dirname, 'index.html'),
         protocol: 'file:',
         slashes: true
     }));
@@ -18,12 +19,13 @@ function createWindow () {
     //win.loadURL('http://localhost:4200');
 
     // Open the DevTools optionally:
-     //win.webContents.openDevTools()
+     win.webContents.openDevTools()
 
     win.on('closed', function () {
         win = null;
     });
-    const menuTemplate = [
+    // create menu items
+   /* const menuTemplate = [
         {
             label: "File"//,
             //submenu: [{role: 'TODO'}]
@@ -31,7 +33,7 @@ function createWindow () {
     ];
 
     const menu = Menu.buildFromTemplate(menuTemplate);
-    Menu.setApplicationMenu(menu);
+    Menu.setApplicationMenu(menu);*/
 }
 
 app.on('ready', createWindow);
