@@ -2,18 +2,48 @@
 const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
 const url = require('url');
+let animal = require('./animal')
 
 let win = null;
 
 // create menu items
    const menuTemplate = [
+   		{
+   			label: 'File',
+   			submenu:[
+   			{
+   				label: 'Quit',
+   				accelerator: process.platform === 'darwin' ? 'Command+Q' : 'Ctrl+Q',
+   				click(){
+   					app.quit();
+   				}
+   			}
+   			]
+   		},
         {
             label: 'Animals',
-            submenu: [{role: 'TODO'}]
+            submenu: [
+            {
+            	label: 'Add',
+            	click(){
+            		let addWin = animal.addAnimal(win);
+            		addWin.show();
+            		//win.show();
+
+            	}
+            	//role: 'hello'
+            },
+            {
+            	type: 'separator'
+            },
+            {
+            	role: 'UNDO'
+            }
+            ]
         },
         {
             label: 'Health',
-            submenu: [{role: 'TODO'}]
+            submenu: [{role: 'help'}]
         },
         {
             label: 'Financials',
@@ -32,7 +62,7 @@ let win = null;
 
 
 function createWindow () {
-    win = new BrowserWindow({width: 800, height: 600})
+    win = new BrowserWindow({backgroundColor: '#2e2c29'})
 
     // load the dist folder from Angular
     win.loadURL(url.format({
@@ -60,6 +90,7 @@ function createWindow () {
 
   		menuTemplate.unshift({
   		});//adding it to the beggining of the array
+
 	}
 
 	const menu = Menu.buildFromTemplate(menuTemplate);
