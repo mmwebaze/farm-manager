@@ -4,5 +4,5 @@ Open source desktop app form managing animals on a farm
 
 ## Development
 
-electron .
+npm start
 

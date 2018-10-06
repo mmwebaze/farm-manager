@@ -1,9 +1,34 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
 const url = require('url');
 
 let win = null;
+
+// create menu items
+   const menuTemplate = [
+        {
+            label: 'Animals',
+            submenu: [{role: 'TODO'}]
+        },
+        {
+            label: 'Health',
+            submenu: [{role: 'TODO'}]
+        },
+        {
+            label: 'Financials',
+            submenu: [{role: 'TODO'}]
+        },
+        {
+            label: 'Reports',
+            submenu: [{role: 'TODO'}]
+        },
+        {
+            label: 'Settings',
+            submenu: [{role: 'TODO'}]
+        }
+    ];
+
 
 
 function createWindow () {
@@ -21,19 +46,24 @@ function createWindow () {
     // Open the DevTools optionally:
      win.webContents.openDevTools()
 
+
+
     win.on('closed', function () {
         win = null;
     });
-    // create menu items
-   /* const menuTemplate = [
-        {
-            label: "File"//,
-            //submenu: [{role: 'TODO'}]
-        }
-    ];
+    
 
-    const menu = Menu.buildFromTemplate(menuTemplate);
-    Menu.setApplicationMenu(menu);*/
+    
+
+    if(process.platform === 'darwin'){
+    	const name = app.getName()
+
+  		menuTemplate.unshift({
+  		});//adding it to the beggining of the array
+	}
+
+	const menu = Menu.buildFromTemplate(menuTemplate);
+    Menu.setApplicationMenu(menu);
 }
 
 app.on('ready', createWindow);
