@@ -1,13 +1,13 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, Menu } = require('electron');
-const path = require('path');
 const url = require('url');
-let animal = require('./animal')
+const path = require('path');
+let menuTemplate = require('./MainMenu');
 
 let win = null;
 
 // create menu items
-   const menuTemplate = [
+   /*const menuTemplate = [
    		{
    			label: 'File',
    			submenu:[
@@ -27,7 +27,7 @@ let win = null;
             	label: 'Add',
             	click(){
             		let addWin = animal.addAnimal(win);
-            		addWin.show();
+            		//addWin.show();
             		//win.show();
 
             	}
@@ -57,12 +57,12 @@ let win = null;
             label: 'Settings',
             submenu: [{role: 'TODO'}]
         }
-    ];
+    ];/*/
 
 
 
 function createWindow () {
-    win = new BrowserWindow({backgroundColor: '#2e2c29'})
+    win = new BrowserWindow({fullscreen: true, transparent: true})
 
     // load the dist folder from Angular
     win.loadURL(url.format({
@@ -70,8 +70,11 @@ function createWindow () {
         protocol: 'file:',
         slashes: true
     }));
-    // Specify entry point
-    //win.loadURL('http://localhost:4200');
+
+    win.on('closed', function(){
+    	app.quit()
+    });
+    
 
     // Open the DevTools optionally:
      win.webContents.openDevTools()
@@ -83,17 +86,13 @@ function createWindow () {
     });
     
 
-    
-
     if(process.platform === 'darwin'){
-    	const name = app.getName()
-
-  		menuTemplate.unshift({
-  		});//adding it to the beggining of the array
+    
+  		menuTemplate.menuTemplate.unshift({});
 
 	}
 
-	const menu = Menu.buildFromTemplate(menuTemplate);
+	const menu = Menu.buildFromTemplate(menuTemplate.menuTemplate);
     Menu.setApplicationMenu(menu);
 }
 

@@ -6,7 +6,7 @@ let addWin;
 
 function addAnimal(win) {
 	addWin = new BrowserWindow(
-		{width: 800, height: 600, title: 'Add Animal', parent: win, modal: true}
+		{width: 800, height: 600, title: 'Add Animal'}
 	);
 
 	 addWin.loadURL(url.format({
@@ -14,6 +14,10 @@ function addAnimal(win) {
         protocol: 'file:',
         slashes: true
     }));
+
+	 addWin.on('close', function(){
+	 	addWin = null;
+	 });
 
 	 return addWin;
 }
