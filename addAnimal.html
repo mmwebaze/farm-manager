@@ -5,6 +5,36 @@
 </head>
 <body>
 <!-- to be done yet -->
-@Todo
+<form>
+	<label>Livestock type</label>
+	<input type="text" name="Livestocktype" autofocus="" id="ls_type"/>
+	<label>Category</label>
+	<label>Herd</label>
+	<label>Tag ID</label>
+	<label>Name</label>
+	<label>Birth Date</label>
+	<label>Gender</label>
+	<label>Colour</label>
+	<label>Breed</label>
+	<label>Purchase Date</label>
+	<label>Purchase Price</label>
+	<label>Image</label>
+	<label>Breed</label>
+	<button type="submit">Add Animal</button>
+</form>
+<script type="text/javascript">
+	const electron = require('electron');
+	const {ipcRenderer} = electron;
+
+	const form = document.querySelector('form');
+	form.addEventListener('submit', submitForm);
+
+	function submitForm(e) {
+		e.preventDefault();
+		const liveStockType = document.querySelector('#ls_type').value;
+		ipcRenderer.send('liveStockType:add', liveStockType);
+		//console.log('hello world')
+	}
+</script>
 </body>
 </html>

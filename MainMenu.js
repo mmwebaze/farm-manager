@@ -1,4 +1,4 @@
-const {Menu} = require('electron');
+const {app, Menu} = require('electron');
 //const electron = require('electron')
 //const url = require('url');
 let animal = require('./animal')

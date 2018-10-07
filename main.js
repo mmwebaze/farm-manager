@@ -1,64 +1,11 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu,  ipcManin} = require('electron');
 const url = require('url');
 const path = require('path');
+
 let menuTemplate = require('./MainMenu');
 
 let win = null;
-
-// create menu items
-   /*const menuTemplate = [
-   		{
-   			label: 'File',
-   			submenu:[
-   			{
-   				label: 'Quit',
-   				accelerator: process.platform === 'darwin' ? 'Command+Q' : 'Ctrl+Q',
-   				click(){
-   					app.quit();
-   				}
-   			}
-   			]
-   		},
-        {
-            label: 'Animals',
-            submenu: [
-            {
-            	label: 'Add',
-            	click(){
-            		let addWin = animal.addAnimal(win);
-            		//addWin.show();
-            		//win.show();
-
-            	}
-            	//role: 'hello'
-            },
-            {
-            	type: 'separator'
-            },
-            {
-            	role: 'UNDO'
-            }
-            ]
-        },
-        {
-            label: 'Health',
-            submenu: [{role: 'help'}]
-        },
-        {
-            label: 'Financials',
-            submenu: [{role: 'TODO'}]
-        },
-        {
-            label: 'Reports',
-            submenu: [{role: 'TODO'}]
-        },
-        {
-            label: 'Settings',
-            submenu: [{role: 'TODO'}]
-        }
-    ];/*/
-
 
 
 function createWindow () {
@@ -78,8 +25,6 @@ function createWindow () {
 
     // Open the DevTools optionally:
      win.webContents.openDevTools()
-
-
 
     win.on('closed', function () {
         win = null;
@@ -109,3 +54,21 @@ app.on('activate', function (){
         createWindow();
     }
 });
+
+if (process.env.NODE_ENV !== 'production'){
+	menuTemplate.menuTemplate.push({
+		label: 'Developer tools',
+		submenu: [
+			{
+				label: 'Toggle DevTools',
+				accelerator: process.platform === 'darwin' ? 'Command+I' : 'Ctrl+I',
+				click(item, focusedWindow){
+					focusedWindow.toggleDevTools();
+				}
+			},
+			{
+				role: 'reload'
+			}
+		]
+	});
+}
