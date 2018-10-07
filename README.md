@@ -1,8 +1,10 @@
 #openFarm
 
-Open source desktop app form managing animals on a farm
+Open source desktop app for managing animals on a farm
 
-## Development
-
-npm start
-
+## Development & trying out
+*  git clone this repository and cd into it
+* create sqlite database (sqlite3 farm.db)
+* npm install
+* npm run rebuild
+* npm start

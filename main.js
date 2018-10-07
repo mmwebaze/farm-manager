@@ -1,11 +1,13 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, Menu,  ipcManin} = require('electron');
+const { app, BrowserWindow, Menu,  ipcMain} = require('electron');
 const url = require('url');
 const path = require('path');
 
+let knex = require('./database');
 let menuTemplate = require('./MainMenu');
 
 let win = null;
+//let addWindow = null;
 
 
 function createWindow () {
@@ -40,6 +42,25 @@ function createWindow () {
 	const menu = Menu.buildFromTemplate(menuTemplate.menuTemplate);
     Menu.setApplicationMenu(menu);
 }
+
+//handle database requests
+
+ipcMain.on('liveStock', function(e, item){
+	console.log('>> '+item);
+	/*let result = knex.knex.select("name").from("stock_type");
+
+	result.then(function (rows) {
+		console.log(rows);
+    });*/
+	knex.knex('stock_type').insert([{ID: 3, NAME: item}])
+		.then(() => console.log("data inserted"))
+			.catch((err) => { console.log(err); throw err })
+			.finally(() => {knex.knex.destroy();}
+	);
+});
+/*ipcMain.on("mainWindowLoaded", function(){
+			
+		});*/
 
 app.on('ready', createWindow);
 

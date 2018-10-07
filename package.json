@@ -4,11 +4,17 @@
   "description": "Open source desktop app form managing animals on a farm",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "rebuild": "electron-rebuild -f -w sqlite3"
   },
   "author": "Michael Mwebaze",
   "license": "ISC",
   "dependencies": {
-    "electron": "^3.0.2"
+    "electron": "^3.0.2",
+    "knex": "^0.15.2",
+    "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {
+    "electron-rebuild": "^1.8.2"
   }
 }

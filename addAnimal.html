@@ -23,8 +23,7 @@
 	<button type="submit">Add Animal</button>
 </form>
 <script type="text/javascript">
-	const electron = require('electron');
-	const {ipcRenderer} = electron;
+	const ipcRenderer = require('electron').ipcRenderer;
 
 	const form = document.querySelector('form');
 	form.addEventListener('submit', submitForm);
@@ -32,8 +31,13 @@
 	function submitForm(e) {
 		e.preventDefault();
 		const liveStockType = document.querySelector('#ls_type').value;
-		ipcRenderer.send('liveStockType:add', liveStockType);
-		//console.log('hello world')
+		//ipcRenderer.send('liveStockType:add', liveStockType);
+
+		//console.log('*** '+liveStockType);
+		ipcRenderer.send('liveStock', liveStockType);
+
+		//var window = remote.getCurrentWindow();
+  		//window.close();
 	}
 </script>
 </body>
