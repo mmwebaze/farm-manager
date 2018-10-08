@@ -12,7 +12,7 @@ FOREIGN KEY (livestock_type_rowid) REFERENCES livestock_type(rowid));
 CREATE TABLE livestock_products (UUID TEXT NOT NULL, NAME TEXT NOT NULL, livestock_category_rowid INTEGER NOT NULL,
 FOREIGN KEY (livestock_category_rowid) REFERENCES livestock_category(rowid));
 
-CREATE TABLE product_cost (UUID TEXT NOT NULL, UNIT_PRICE REAL NOT NULL, livestock_products_rowid,
+CREATE TABLE product_cost (UUID TEXT NOT NULL, UNIT_PRICE REAL NOT NULL, livestock_products_rowid INTEGER NOT NULL,
 FOREIGN KEY (livestock_products_rowid) REFERENCES livestock_products(rowid));
 
 CREATE TABLE livestock (UUID TEXT NOT NULL, NAME TEXT NULL, livestock_type_rowid INTEGER NOT NULL, livestock_category_rowid INTEGER NOT NULL,
