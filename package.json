@@ -12,6 +12,7 @@
   "dependencies": {
     "electron": "^3.0.2",
     "knex": "^0.15.2",
+    "materialize-css": "^1.0.0-rc.2",
     "sqlite3": "^4.0.2"
   },
   "devDependencies": {

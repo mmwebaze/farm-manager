@@ -1,4 +1,4 @@
-#openFarm
+# openFarm
 
 Open source desktop app for managing animals on a farm
 
