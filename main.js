@@ -2,6 +2,7 @@
 const { app, BrowserWindow, Menu,  ipcMain} = require('electron');
 const url = require('url');
 const path = require('path');
+const uuid = require('uuid4');
 
 let knex = require('./database');
 let menuTemplate = require('./MainMenu');
@@ -45,17 +46,21 @@ function createWindow () {
 
 //handle database requests
 
-ipcMain.on('liveStock', function(e, item){
-	console.log('>> '+item);
+ipcMain.on('newAnimal', function(e, item){
+
+	console.log(item['cat']+' - '+item['type']);
 	/*let result = knex.knex.select("name").from("stock_type");
 
 	result.then(function (rows) {
 		console.log(rows);
     });*/
-	knex.knex('stock_type').insert([{ID: 3, NAME: item}])
+	knex.knex('livestock_type').insert([{NAME: item, UUID: uuid()}])
 		.then(() => console.log("data inserted"))
 			.catch((err) => { console.log(err); throw err })
-			.finally(() => {knex.knex.destroy();}
+			.finally(() => {
+			    console.log('Should close connection and not destroy');
+			    //knex.knex.destroy();
+			}
 	);
 });
 /*ipcMain.on("mainWindowLoaded", function(){
