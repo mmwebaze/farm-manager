@@ -12,17 +12,71 @@
 <div class="container-fluid">
     <div style="height: 100px; background-color: rgba(255,0,0,0.1);" class="row"></div>
 </div>
+<div class="container">
+    <form>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="livestock_type">Livestock Type</label>
+                <select id="livestock_type" class="form-control">
+                    <option selected>Choose...</option>
+                    <!--<option>Cattle</option>
+                    <option>Chicken</option>
+                    <option>Goats</option>
+                    <option>Pigs</option>-->
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="category">Category</label>
+                <input type="text" class="form-control" id="category" placeholder="Livestock category">
+            </div>
+        </div>
 
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        <button type="submit" class="btn btn-primary">Add category</button>
+    </form>
+</div>
+<!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
+<script language="JavaScript" type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>-->
+<script>window.$ = window.jQuery = require('jquery');</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-<script type="text/javascript"></script>
+<script type="text/javascript">
+    const ipcRenderer = require('electron').ipcRenderer;
+
+    const form = document.querySelector('form');
+    form.addEventListener('submit', submitForm);
+
+    ipcRenderer.on('info' , function(event , data){
+        let liveStockTypeSelect = document.getElementById("livestock_type");
+        for(let i = 0; i < data.length; i++){
+            let el = document.createElement('option');
+            el.textContent = data[i]['NAME'];
+            el.value = data[i]['UUID']; // change to uid
+            liveStockTypeSelect.appendChild(el);
+        }
+
+    });
+
+    function submitForm(e) {
+        console.log('Submitting new cat')
+        e.preventDefault();
+        //const liveStockType = document.querySelector('#livestock_type').value;
+        let newLiveStockCategory = {
+            'id': 'addLiveStockCategory',
+            'typeUuid': document.querySelector('#livestock_type').value,
+            'categoryName': document.querySelector('#category').value
+        };
+
+        console.log(newLiveStockCategory);
+        ipcRenderer.send('livestock', newLiveStockCategory);
+    }
+</script>
 </body>
 </html>

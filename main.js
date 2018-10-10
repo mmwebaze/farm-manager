@@ -6,10 +6,9 @@ const uuid = require('uuid4');
 
 let knex = require('./database');
 let menuTemplate = require('./MainMenu');
+let livestockDb = require('./livestockdb');
 
 let win = null;
-
-//let addWindow = null;
 
 
 function createWindow() {
@@ -46,30 +45,22 @@ function createWindow() {
 }
 
 //handle database requests
-
-ipcMain.on('newAnimal', function (e, item) {
-
-    console.log(item['cat'] + ' - ' + item['type']);
-    /*let result = knex.knex.select("name").from("stock_type");
-
-    result.then(function (rows) {
-        console.log(rows);
-    });*/
-    knex.knex('livestock_type').insert([{NAME: item, UUID: uuid()}])
-        .then(() => console.log("data inserted"))
-        .catch((err) => {
-            console.log(err);
-            throw err
-        })
-        .finally(() => {
-                console.log('Should close connection and not destroy');
-                //knex.knex.destroy();
-            }
-        );
+ipcMain.on('Hello', function (e, item) {
+    console.log(item);
+    menuTemplate.livestockCategoryWin.webContents.send('info' , {msg:'hello from main process'});
 });
-/*ipcMain.on("mainWindowLoaded", function(){
-			
-		});*/
+
+ipcMain.on('livestock', function (e, item) {
+
+    if ('addLiveStockCategory' === item['id']){
+        console.log('**** '+item['id']);
+        livestockDb.save('livestock_category', {'uuid': uuid(), 'name': item['categoryName'], 'livestock_type_uuid': item['typeUuid']})
+    }
+    else{
+
+    }
+
+});
 
 app.on('ready', createWindow);
 

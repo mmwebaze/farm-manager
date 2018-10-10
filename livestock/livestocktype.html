@@ -12,7 +12,18 @@
 <div class="container-fluid">
     <div style="height: 100px; background-color: rgba(255,0,0,0.1);" class="row"></div>
 </div>
+<div class="container">
+    <form>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="livestock_type">Type</label>
+                <input type="text" class="form-control" id="livestock_type" placeholder="Livestock type">
+            </div>
+        </div>
 
+        <button type="submit" class="btn btn-primary">Add livestock type</button>
+    </form>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -23,6 +34,28 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-<script type="text/javascript"></script>
+<script type="text/javascript">
+    const ipcRenderer = require('electron').ipcRenderer;
+
+    const form = document.querySelector('form');
+    form.addEventListener('submit', submitForm);
+
+    function submitForm(e) {
+        e.preventDefault();
+        //const liveStockType = document.querySelector('#livestock_type').value;
+        let newLiveStockType = {
+            'id': 'livestock_type',
+            'type': document.querySelector('#livestock_type').value,
+            'cat': document.querySelector('#category').value
+        };
+        //ipcRenderer.send('liveStockType:add', liveStockType);
+
+        //console.log('*** '+liveStockType);
+        ipcRenderer.send('livestock', newLiveStockType);
+
+        //var window = remote.getCurrentWindow();
+        //window.close();
+    }
+</script>
 </body>
 </html>

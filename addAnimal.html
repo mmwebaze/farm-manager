@@ -103,15 +103,16 @@
 
     function submitForm(e) {
         e.preventDefault();
-        const liveStockType = document.querySelector('#livestock_type').value;
+        //const liveStockType = document.querySelector('#livestock_type').value;
         let newAnimal = {
+            'id': 'livestock_type',
             'type': document.querySelector('#livestock_type').value,
             'cat': document.querySelector('#category').value
         };
         //ipcRenderer.send('liveStockType:add', liveStockType);
 
         //console.log('*** '+liveStockType);
-        ipcRenderer.send('newAnimal', newAnimal);
+        ipcRenderer.send('livestock', newAnimal);
 
         //var window = remote.getCurrentWindow();
         //window.close();

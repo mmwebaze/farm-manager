@@ -1,11 +1,10 @@
 const { BrowserWindow } = require('electron');
 const path = require('path');
 const url = require('url');
-
-let addWin;
+let knex = require('./database');
 
 function addAnimal(win) {
-	addWin = new BrowserWindow(
+	let addWin = new BrowserWindow(
 		{width: 800, height: 600, title: 'Add Animal'}
 	);
 
@@ -52,7 +51,11 @@ function addLivestockCategory(){
     addLiveStockCategoryWin.on('close', function(){
         addLiveStockCategoryWin = null;
     });
+    let result = knex.knex.select("uuid", "name").from("livestock_type");
 
+    result.then(function (rows) {
+        addLiveStockCategoryWin.webContents.send('info' , rows);
+    });
     return addLiveStockCategoryWin;
 }
 module.exports.addAnimal = addAnimal;

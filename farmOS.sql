@@ -6,8 +6,8 @@ DROP TABLE IF EXISTS livestock_products;
 DROP TABLE IF EXISTS product_cost;
 
 CREATE TABLE livestock_type (UUID TEXT NOT NULL, NAME TEXT NOT NULL);
-CREATE TABLE livestock_category (UUID TEXT NOT NULL, NAME TEXT NOT NULL, livestock_type_rowid INTEGER NOT NULL,
-FOREIGN KEY (livestock_type_rowid) REFERENCES livestock_type(rowid));
+CREATE TABLE livestock_category (UUID TEXT NOT NULL, NAME TEXT NOT NULL, livestock_type_uuid TEXT NOT NULL,
+FOREIGN KEY (livestock_type_uuid) REFERENCES livestock_type(uuid));
 
 CREATE TABLE livestock_products (UUID TEXT NOT NULL, NAME TEXT NOT NULL, livestock_category_rowid INTEGER NOT NULL,
 FOREIGN KEY (livestock_category_rowid) REFERENCES livestock_category(rowid));

@@ -1,7 +1,7 @@
 const {app, Menu} = require('electron');
 //const electron = require('electron')
 //const url = require('url');
-let animal = require('./animal')
+let animal = require('./animal');
 
 const menuTemplate = [
     {
